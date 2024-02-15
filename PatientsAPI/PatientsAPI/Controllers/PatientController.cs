@@ -11,14 +11,29 @@ namespace PatientsAPI.Controllers
         private readonly string _connectionString = "server=localhost;port=3306;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
 
         [HttpGet("GetPatients")]
-        public async Task<IEnumerable<PatientWithId>> GetPatients()
+        public async Task<IEnumerable<PatientWithId>> GetPatients([FromQuery] string? birthDate = null)
         {
             List<PatientWithId> patients = new List<PatientWithId>();
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
                 string sqlText = "SELECT * FROM Patient";
+                bool birthDateCondition = false;
+                DateTime comparisonDate = DateTime.MinValue; 
+                if (birthDate != null)
+                {
+                    string comparisonOperator = birthDate.Substring(0, 2);
+                    string dateString = birthDate.Substring(2);
+                    if (DateTime.TryParse(dateString, out comparisonDate))
+                    {
+                        sqlText += SelectQueryDateCondition(comparisonOperator, ref birthDateCondition);
+                    }
+                }
                 using var command = new MySqlCommand(sqlText, connection);
+                if (birthDateCondition)
+                {
+                    command.Parameters.AddWithValue("@BirthDate", comparisonDate);
+                }
                 using var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
@@ -38,6 +53,36 @@ namespace PatientsAPI.Controllers
                 }
             }
             return patients;
+        }
+
+        private string SelectQueryDateCondition(string comparisonOperator, ref bool birthDateCondition)
+        {
+            string condition;
+            switch (comparisonOperator.ToLower())
+            {
+                case "eq":
+                    condition = " WHERE BirthDate = @BirthDate";
+                    break;
+                case "ne":
+                    condition = " WHERE BirthDate <> @BirthDate";
+                    break;
+                case "lt":
+                    condition = " WHERE BirthDate < @BirthDate";
+                    break;
+                case "le":
+                    condition = " WHERE BirthDate <= @BirthDate";
+                    break;
+                case "gt":
+                    condition = " WHERE BirthDate > @BirthDate";
+                    break;
+                case "ge":
+                    condition = " WHERE BirthDate >= @BirthDate";
+                    break;
+                default:
+                    throw new ArgumentException("Invalid comparison operator.");
+            }
+            birthDateCondition = true;
+            return condition;
         }
 
         [HttpGet("GetPatient{id}")]
