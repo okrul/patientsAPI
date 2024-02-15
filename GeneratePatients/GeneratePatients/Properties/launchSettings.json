@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GeneratePatients": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

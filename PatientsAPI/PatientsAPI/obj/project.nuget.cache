@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "348gby+psRWegz/ppmFDXDkv7DzokzNOdHZwCkKDjxT+Us4GDC6Tt9ka7HbxcUcyrodFBruSUYMBYUUzRWC/mw==",
+  "dgSpecHash": "mbDI1osOwrI7TtXTjzr0TF1dDQEan0JOjhonFxNxgja4kvH0km46AQUuksXOkP75/nioKoSRt8sF23W/VgdsGQ==",
   "success": true,
-  "projectFilePath": "D:\\Test project\\patients\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj",
+  "projectFilePath": "D:\\PatientsAPI\\patientsAPI\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alex\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\google.protobuf\\3.25.1\\google.protobuf.3.25.1.nupkg.sha512",

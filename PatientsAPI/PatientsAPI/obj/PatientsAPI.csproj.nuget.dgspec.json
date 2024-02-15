@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Test project\\patients\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj": {}
+    "D:\\PatientsAPI\\patientsAPI\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj": {}
   },
   "projects": {
-    "D:\\Test project\\patients\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj": {
+    "D:\\PatientsAPI\\patientsAPI\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Test project\\patients\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj",
+        "projectUniqueName": "D:\\PatientsAPI\\patientsAPI\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj",
         "projectName": "PatientsAPI",
-        "projectPath": "D:\\Test project\\patients\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj",
+        "projectPath": "D:\\PatientsAPI\\patientsAPI\\PatientsAPI\\PatientsAPI\\PatientsAPI.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "D:\\Test project\\patients\\PatientsAPI\\PatientsAPI\\obj\\",
+        "outputPath": "D:\\PatientsAPI\\patientsAPI\\PatientsAPI\\PatientsAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",

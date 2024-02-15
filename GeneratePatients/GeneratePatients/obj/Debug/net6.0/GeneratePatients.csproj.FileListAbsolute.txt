@@ -1,0 +1,42 @@
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.exe
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.deps.json
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.runtimeconfig.json
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.pdb
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.GeneratedMSBuildEditorConfig.editorconfig
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.AssemblyInfoInputs.cache
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.AssemblyInfo.cs
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.csproj.CoreCompileInputs.cache
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.sourcelink.json
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\refint\GeneratePatients.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.pdb
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.genruntimeconfig.cache
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\ref\GeneratePatients.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.Web.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.Web.AspNetCore.dll
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.csproj.AssemblyReference.cache
+D:\Test project\patients\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.csproj.CopyComplete
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.csproj.AssemblyReference.cache
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.GeneratedMSBuildEditorConfig.editorconfig
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.AssemblyInfoInputs.cache
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.AssemblyInfo.cs
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.csproj.CoreCompileInputs.cache
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.sourcelink.json
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\refint\GeneratePatients.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.pdb
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.exe
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.deps.json
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.runtimeconfig.json
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\GeneratePatients.pdb
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.Extensions.Logging.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.Web.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\bin\Debug\net6.0\NLog.Web.AspNetCore.dll
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.csproj.CopyComplete
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\GeneratePatients.genruntimeconfig.cache
+D:\PatientsAPI\patientsAPI\GeneratePatients\GeneratePatients\obj\Debug\net6.0\ref\GeneratePatients.dll
