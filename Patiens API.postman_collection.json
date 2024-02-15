@@ -167,6 +167,32 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get Patient By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32804/Patient/GetPatient?id=af0d43db-cbc7-11ee-a980-b4b52f77def1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"GetPatient"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "af0d43db-cbc7-11ee-a980-b4b52f77def1"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
