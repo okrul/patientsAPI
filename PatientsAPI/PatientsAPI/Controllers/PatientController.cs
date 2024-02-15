@@ -8,7 +8,7 @@ namespace PatientsAPI.Controllers
     [Route("[controller]")]
     public class PatientController : ControllerBase
     {
-        private readonly string _connectionString = "server=localhost;port=3308;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
+        private readonly string _connectionString = "server=host.docker.internal;port=3308;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
 
         [HttpGet("GetPatients")]
         public async Task<IEnumerable<PatientWithId>> GetPatients([FromQuery] string? birthDate = null)
