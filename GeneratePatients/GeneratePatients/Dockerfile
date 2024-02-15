@@ -1,20 +1,14 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
-
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["GeneratePatients/GeneratePatients.csproj", "GeneratePatients/"]
-RUN dotnet restore "./GeneratePatients/./GeneratePatients.csproj"
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
+WORKDIR /App
+COPY *.csproj ./
+RUN dotnet restore
 COPY . .
-WORKDIR "/src/GeneratePatients"
-RUN dotnet build "./GeneratePatients.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet publish -c Release -o out
 
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./GeneratePatients.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /App
+EXPOSE 80
+EXPOSE 443
+COPY --from=build-env /App/out .
+COPY *.json .
 ENTRYPOINT ["dotnet", "GeneratePatients.dll"]

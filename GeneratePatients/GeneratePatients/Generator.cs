@@ -12,7 +12,7 @@ namespace GeneratePatients
         private static readonly string[] surnames = { "Иванов", "Петров", "Сидоров", "Кузнецов", "Смирнов" };
         private static readonly string[] maleNames = { "Иван", "Петр", "Александр", "Виктор", "Владимир" };
         private static readonly string[] femaleNames = { "Ольга", "Мария", "Татьяна", "Елизавета", "Екатерина" };
-        private static readonly string apiURL = "https://localhost:7075/Patient/PostPatient";
+        private static readonly string apiURL = "http://host.docker.internal:32804/Patient/PostPatient";
         private static readonly HttpClient httpClient = new HttpClient();
         private static readonly Random random = new Random();
 

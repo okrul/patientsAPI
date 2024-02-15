@@ -6,7 +6,6 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
-ENV TZ='Russia/MSK'
 WORKDIR /App
 EXPOSE 80
 EXPOSE 443
