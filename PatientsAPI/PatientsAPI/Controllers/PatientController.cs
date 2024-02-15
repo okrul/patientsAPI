@@ -8,7 +8,7 @@ namespace PatientsAPI.Controllers
     [Route("[controller]")]
     public class PatientController : ControllerBase
     {
-        private readonly string _connectionString = "server=localhost;port=3306;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
+        private readonly string _connectionString = "server=localhost;port=3308;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
 
         [HttpGet("GetPatients")]
         public async Task<IEnumerable<PatientWithId>> GetPatients([FromQuery] string? birthDate = null)
@@ -17,7 +17,7 @@ namespace PatientsAPI.Controllers
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sqlText = "SELECT * FROM Patient";
+                string sqlText = "SELECT * FROM patient";
                 bool birthDateCondition = false;
                 DateTime comparisonDate = DateTime.MinValue; 
                 if (birthDate != null)
@@ -92,7 +92,7 @@ namespace PatientsAPI.Controllers
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sql = "SELECT * FROM Patient WHERE Id = @Id";
+                string sql = "SELECT * FROM patient WHERE Id = @Id";
                 using var command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 using var reader = await command.ExecuteReaderAsync();
@@ -122,7 +122,7 @@ namespace PatientsAPI.Controllers
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sqlText = "INSERT INTO Patient (UseName, Gender, Active, FamilyName, GivenName, BirthDate) " +
+                string sqlText = "INSERT INTO patient (UseName, Gender, Active, FamilyName, GivenName, BirthDate) " +
                              "VALUES (@UseName, @Gender, @Active, @FamilyName, @GivenName, @BirthDate)";
                 using var command = new MySqlCommand(sqlText, connection);
                 command.Parameters.AddWithValue("@UseName", patient.Name?.Use);
@@ -145,7 +145,7 @@ namespace PatientsAPI.Controllers
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sqlText = "UPDATE Patient SET UseName = @UseName, FamilyName = @FamilyName, " +
+                string sqlText = "UPDATE patient SET UseName = @UseName, FamilyName = @FamilyName, " +
                              "GivenName = @GivenName, Gender = @Gender, BirthDate = @BirthDate, Active = @Active " +
                              "WHERE Id = @Id";
                 using var command = new MySqlCommand(sqlText, connection);
@@ -170,7 +170,7 @@ namespace PatientsAPI.Controllers
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
-                string sqlText = "DELETE FROM Patient WHERE Id = @Id";
+                string sqlText = "DELETE FROM patient WHERE Id = @Id";
                 using var command = new MySqlCommand(sqlText, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 await command.ExecuteNonQueryAsync();
