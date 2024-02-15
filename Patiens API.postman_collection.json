@@ -1,0 +1,172 @@
+{
+	"info": {
+		"_postman_id": "e11950c0-bd7c-41da-bff8-d4efc8e40127",
+		"name": "Patiens API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19628349"
+	},
+	"item": [
+		{
+			"name": "Get All Patients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32804/Patient/GetPatients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"GetPatients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post New Patient",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\r\n    {\r\n        \"use\": \"official\",\r\n    \"family\": \"Иванов\",\r\n    \"given\": [\r\n        \"Иван\",\r\n        \"Иванович\"\r\n    ]\r\n },\r\n \"gender\": \"male\",\r\n \"birthDate\": \"2024-01-13T18:25:43\",\r\n \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32804/Patient/PostPatient",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"PostPatient"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Patient",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\r\n    {\r\n        \"use\": \"official\",\r\n    \"family\": \"Турова\",\r\n    \"given\": [\r\n        \"Инна\",\r\n        \"Ивановна\"\r\n    ]\r\n },\r\n \"gender\": \"male\",\r\n \"birthDate\": \"2022-01-13T18:25:43\",\r\n \"active\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:32804/Patient/UpdatePatient?id=af2d4dee-cbc8-11ee-a980-b4b52f77def1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"UpdatePatient"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "af2d4dee-cbc8-11ee-a980-b4b52f77def1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Patient",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32804/Patient/DeletePatient?id=9c17c279-cbe8-11ee-b92d-0242ac110002",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"DeletePatient"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "9c17c279-cbe8-11ee-b92d-0242ac110002"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Serch By BirthDay Equal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32804/Patient/GetPatients?birthDate=eq2024-02-13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"GetPatients"
+					],
+					"query": [
+						{
+							"key": "birthDate",
+							"value": "eq2024-02-13"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sarch By BirthDay Greater or Equal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:32804/Patient/GetPatients?birthDate=ge2024-02-13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "32804",
+					"path": [
+						"Patient",
+						"GetPatients"
+					],
+					"query": [
+						{
+							"key": "birthDate",
+							"value": "ge2024-02-13"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
