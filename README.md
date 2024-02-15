@@ -2,7 +2,7 @@
 
 ##MySQL-сервер и тестовая БД:
 docker pull aokrul/mysql
-docker run -dt -p 3308:3306 aokrul/patientsapi:latest
+docker run -dt -p 3308:3306 aokrul/mysql:latest
 Порт 3308 используется в API сервисе
 
 ##REST API сервис:

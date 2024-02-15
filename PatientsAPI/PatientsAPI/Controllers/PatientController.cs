@@ -61,31 +61,31 @@ namespace PatientsAPI.Controllers
             switch (comparisonOperator.ToLower())
             {
                 case "eq":
-                    condition = " WHERE BirthDate = @BirthDate";
+                    condition = " WHERE DATE(BirthDate) = @BirthDate";
                     break;
                 case "ne":
-                    condition = " WHERE BirthDate <> @BirthDate";
+                    condition = " WHERE DATE(BirthDate) <> @BirthDate";
                     break;
                 case "lt":
-                    condition = " WHERE BirthDate < @BirthDate";
+                    condition = " WHERE DATE(BirthDate) < @BirthDate";
                     break;
                 case "le":
-                    condition = " WHERE BirthDate <= @BirthDate";
+                    condition = " WHERE DATE(BirthDate) <= @BirthDate";
                     break;
                 case "gt":
-                    condition = " WHERE BirthDate > @BirthDate";
+                    condition = " WHERE DATE(BirthDate) > @BirthDate";
                     break;
                 case "ge":
-                    condition = " WHERE BirthDate >= @BirthDate";
+                    condition = " WHERE DATE(BirthDate) >= @BirthDate";
                     break;
                 default:
-                    throw new ArgumentException("Invalid comparison operator.");
+                    throw new ArgumentException("Не верный оператор сравнения.");
             }
             birthDateCondition = true;
             return condition;
         }
 
-        [HttpGet("GetPatient{id}")]
+        [HttpGet("GetPatient")]
         public async Task<ActionResult<PatientWithId?>> GetPatient(Guid id)
         {
             PatientWithId patient = null;
@@ -139,7 +139,7 @@ namespace PatientsAPI.Controllers
             return NoContent();
         }
 
-        [HttpPut("UpdatePatient{id}")]
+        [HttpPut("UpdatePatient")]
         public async Task<IActionResult> UpdatePatient(Guid id, Patient patient)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -164,7 +164,7 @@ namespace PatientsAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("DeletePatient{id}")]
+        [HttpDelete("DeletePatient")]
         public async Task<IActionResult> DeletePatient(Guid id)
         {
             using (var connection = new MySqlConnection(_connectionString))
