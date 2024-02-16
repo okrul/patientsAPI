@@ -20,6 +20,7 @@ namespace PatientsAPI.Controllers
                 await connection.OpenAsync();
                 string sqlText = "SELECT * FROM patient";
                 var (birthDateCondition, comparisonDate) = BirthDateCondition(birthDate);
+                sqlText += birthDateCondition;
                 using var command = new MySqlCommand(sqlText, connection);
                 if (birthDateCondition != null)
                 {
@@ -131,7 +132,7 @@ namespace PatientsAPI.Controllers
                 };
         }
 
-        private static (string?, DateTime) BirthDateCondition(string? birthDate) {
+        private static (string, DateTime) BirthDateCondition(string? birthDate) {
             DateTime comparisonDate = DateTime.MinValue; 
             if (birthDate != null)
             {
@@ -142,7 +143,7 @@ namespace PatientsAPI.Controllers
                     return (SelectQueryDateCondition(comparisonOperator), comparisonDate);
                 }
             }
-            return (null, comparisonDate);
+            return ("", comparisonDate);
         }
 
         private static string SelectQueryDateCondition(string comparisonOperator)
