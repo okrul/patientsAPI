@@ -14,7 +14,7 @@ namespace PatientsAPI.Controllers
         [HttpGet("GetPatients")]
         public async Task<IEnumerable<PatientWithId>> GetPatients([FromQuery] string? birthDate = null)
         {
-            List<PatientWithId> patients = new List<PatientWithId>();
+            List<PatientWithId> patients = new();
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -153,7 +153,7 @@ namespace PatientsAPI.Controllers
                 "eq" => "=",
                 "ne" => "<>",
                 "lt" => "<",
-                "le" => "<",
+                "le" => "<=",
                 "gt" => ">",
                 "ge" => ">=",
                 _ => throw new ArgumentException("Не верный оператор сравнения."),
