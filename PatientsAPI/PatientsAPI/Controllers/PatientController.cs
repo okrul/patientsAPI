@@ -22,7 +22,7 @@ namespace PatientsAPI.Controllers
                 var (birthDateCondition, comparisonDate) = BirthDateCondition(birthDate);
                 sqlText += birthDateCondition;
                 using var command = new MySqlCommand(sqlText, connection);
-                if (birthDateCondition != null)
+                if (!String.IsNullOrWhiteSpace(birthDateCondition))
                 {
                     command.Parameters.AddWithValue("@BirthDate", comparisonDate);
                 }
