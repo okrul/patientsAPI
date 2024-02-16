@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MySql.Data.MySqlClient;
 using System.Data;
+using System.Data.Common;
 
 namespace PatientsAPI.Controllers
 {
@@ -8,7 +9,7 @@ namespace PatientsAPI.Controllers
     [Route("[controller]")]
     public class PatientController : ControllerBase
     {
-        private readonly string _connectionString = "server=host.docker.internal;port=3308;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
+        private readonly string _connectionString = "server=localhost;port=3306;database=api_test;uid=root;pwd=1qaz@WSX3edc;";
 
         [HttpGet("GetPatients")]
         public async Task<IEnumerable<PatientWithId>> GetPatients([FromQuery] string? birthDate = null)
@@ -18,77 +19,25 @@ namespace PatientsAPI.Controllers
             {
                 await connection.OpenAsync();
                 string sqlText = "SELECT * FROM patient";
-                bool birthDateCondition = false;
-                DateTime comparisonDate = DateTime.MinValue; 
-                if (birthDate != null)
-                {
-                    string comparisonOperator = birthDate.Substring(0, 2);
-                    string dateString = birthDate.Substring(2);
-                    if (DateTime.TryParse(dateString, out comparisonDate))
-                    {
-                        sqlText += SelectQueryDateCondition(comparisonOperator, ref birthDateCondition);
-                    }
-                }
+                var (birthDateCondition, comparisonDate) = BirthDateCondition(birthDate);
                 using var command = new MySqlCommand(sqlText, connection);
-                if (birthDateCondition)
+                if (birthDateCondition != null)
                 {
                     command.Parameters.AddWithValue("@BirthDate", comparisonDate);
                 }
                 using var reader = await command.ExecuteReaderAsync();
                 while (await reader.ReadAsync())
                 {
-                    patients.Add(new PatientWithId
-                    {
-                        Name = new NameWithId
-                        {
-                            Id = reader.GetGuid("Id"),
-                            Use = reader.GetString("UseName"),
-                            Family = reader.GetString("FamilyName"),
-                            Given = reader.GetString("GivenName").Split(' ')
-                        },
-                        Gender = reader.GetString("Gender"),
-                        BirthDate = reader.GetDateTime("BirthDate"),
-                        Active = reader.GetBoolean("Active")
-                    });
+                    patients.Add(PatientDTO(reader));
                 }
             }
             return patients;
         }
 
-        private string SelectQueryDateCondition(string comparisonOperator, ref bool birthDateCondition)
-        {
-            string condition;
-            switch (comparisonOperator.ToLower())
-            {
-                case "eq":
-                    condition = " WHERE DATE(BirthDate) = @BirthDate";
-                    break;
-                case "ne":
-                    condition = " WHERE DATE(BirthDate) <> @BirthDate";
-                    break;
-                case "lt":
-                    condition = " WHERE DATE(BirthDate) < @BirthDate";
-                    break;
-                case "le":
-                    condition = " WHERE DATE(BirthDate) <= @BirthDate";
-                    break;
-                case "gt":
-                    condition = " WHERE DATE(BirthDate) > @BirthDate";
-                    break;
-                case "ge":
-                    condition = " WHERE DATE(BirthDate) >= @BirthDate";
-                    break;
-                default:
-                    throw new ArgumentException("Не верный оператор сравнения.");
-            }
-            birthDateCondition = true;
-            return condition;
-        }
-
         [HttpGet("GetPatient")]
         public async Task<ActionResult<PatientWithId?>> GetPatient(Guid id)
         {
-            PatientWithId patient = null;
+            PatientWithId? patient = null;
             using (var connection = new MySqlConnection(_connectionString))
             {
                 await connection.OpenAsync();
@@ -98,19 +47,7 @@ namespace PatientsAPI.Controllers
                 using var reader = await command.ExecuteReaderAsync();
                 if (await reader.ReadAsync())
                 {
-                    patient = new PatientWithId
-                    {
-                        Name = new NameWithId
-                        {
-                            Id = reader.GetGuid("Id"),
-                            Use = reader.GetString("UseName"),
-                            Family = reader.GetString("FamilyName"),
-                            Given = reader.GetString("GivenName").Split(' ')
-                        },
-                        Gender = reader.GetString("Gender"),
-                        BirthDate = reader.GetDateTime("BirthDate"),
-                        Active = reader.GetBoolean("Active")
-                    };
+                    patient = PatientDTO(reader);
                 }
             }
             return patient;
@@ -125,15 +62,7 @@ namespace PatientsAPI.Controllers
                 string sqlText = "INSERT INTO patient (UseName, Gender, Active, FamilyName, GivenName, BirthDate) " +
                              "VALUES (@UseName, @Gender, @Active, @FamilyName, @GivenName, @BirthDate)";
                 using var command = new MySqlCommand(sqlText, connection);
-                command.Parameters.AddWithValue("@UseName", patient.Name?.Use);
-                command.Parameters.AddWithValue("@Gender", patient.Gender);
-                command.Parameters.AddWithValue("@Active", patient.Active);
-                command.Parameters.AddWithValue("@FamilyName", patient.Name?.Family);
-                if (patient.Name?.Given != null)
-                    command.Parameters.AddWithValue("@GivenName", string.Join(' ', patient.Name.Given));
-                else
-                    command.Parameters.AddWithValue("@GivenName", "");
-                command.Parameters.AddWithValue("@BirthDate", patient.BirthDate);
+                SetSQLParameters(patient, command.Parameters);
                 await command.ExecuteNonQueryAsync();
             }
             return NoContent();
@@ -149,16 +78,7 @@ namespace PatientsAPI.Controllers
                              "GivenName = @GivenName, Gender = @Gender, BirthDate = @BirthDate, Active = @Active " +
                              "WHERE Id = @Id";
                 using var command = new MySqlCommand(sqlText, connection);
-                command.Parameters.AddWithValue("@UseName", patient.Name?.Use);
-                command.Parameters.AddWithValue("@FamilyName", patient.Name?.Family);
-                if (patient.Name?.Given != null)
-                    command.Parameters.AddWithValue("@GivenName", string.Join(' ', patient.Name.Given));
-                else
-                    command.Parameters.AddWithValue("@GivenName", "");
-                command.Parameters.AddWithValue("@Gender", patient.Gender);
-                command.Parameters.AddWithValue("@BirthDate", patient.BirthDate);
-                command.Parameters.AddWithValue("@Active", patient.Active);
-                command.Parameters.AddWithValue("@Id", id);
+                SetSQLParameters(patient, command.Parameters, id);
                 await command.ExecuteNonQueryAsync();
             }
             return NoContent();
@@ -178,5 +98,66 @@ namespace PatientsAPI.Controllers
             return NoContent();
         }
 
+        private static void SetSQLParameters(Patient patient, MySqlParameterCollection parameters, Guid? id = null) {
+            parameters.AddWithValue("@UseName", patient.Name?.Use);
+            parameters.AddWithValue("@FamilyName", patient.Name?.Family);
+            if (patient.Name?.Given != null)
+                parameters.AddWithValue("@GivenName", string.Join(' ', patient.Name.Given));
+            else
+                parameters.AddWithValue("@GivenName", "");
+            parameters.AddWithValue("@Gender", patient.Gender);
+            parameters.AddWithValue("@BirthDate", patient.BirthDate);
+            parameters.AddWithValue("@Active", patient.Active);
+            if (id != null)
+            {
+                parameters.AddWithValue("@Id", id);
+            }
+        }
+        
+        private static PatientWithId PatientDTO(DbDataReader reader) 
+        {
+            return new PatientWithId
+                {
+                    Name = new NameWithId
+                    {
+                        Id = reader.GetGuid("Id"),
+                        Use = reader.GetString("UseName"),
+                        Family = reader.GetString("FamilyName"),
+                        Given = reader.GetString("GivenName").Split(' ')
+                    },
+                    Gender = reader.GetString("Gender"),
+                    BirthDate = reader.GetDateTime("BirthDate"),
+                    Active = reader.GetBoolean("Active")
+                };
+        }
+
+        private (string?, DateTime) BirthDateCondition(string? birthDate) {
+            DateTime comparisonDate = DateTime.MinValue; 
+            if (birthDate != null)
+            {
+                string comparisonOperator = birthDate[..2];
+                string dateString = birthDate[2..];
+                if (DateTime.TryParse(dateString, out comparisonDate))
+                {
+                    return (SelectQueryDateCondition(comparisonOperator), comparisonDate);
+                }
+            }
+            return (null, comparisonDate);
+        }
+
+        private string SelectQueryDateCondition(string comparisonOperator)
+        {
+            string sqlOperator = comparisonOperator.ToLower() switch
+            {
+                "eq" => "=",
+                "ne" => "<>",
+                "lt" => "<",
+                "le" => "<",
+                "gt" => ">",
+                "ge" => ">=",
+                _ => throw new ArgumentException("Не верный оператор сравнения."),
+            };
+            return $"WHERE DATE(BirthDate) {sqlOperator} @BirthDate";
+        }
     }
 }
