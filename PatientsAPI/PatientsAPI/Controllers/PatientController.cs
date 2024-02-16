@@ -131,7 +131,7 @@ namespace PatientsAPI.Controllers
                 };
         }
 
-        private (string?, DateTime) BirthDateCondition(string? birthDate) {
+        private static (string?, DateTime) BirthDateCondition(string? birthDate) {
             DateTime comparisonDate = DateTime.MinValue; 
             if (birthDate != null)
             {
@@ -145,7 +145,7 @@ namespace PatientsAPI.Controllers
             return (null, comparisonDate);
         }
 
-        private string SelectQueryDateCondition(string comparisonOperator)
+        private static string SelectQueryDateCondition(string comparisonOperator)
         {
             string sqlOperator = comparisonOperator.ToLower() switch
             {
@@ -157,7 +157,7 @@ namespace PatientsAPI.Controllers
                 "ge" => ">=",
                 _ => throw new ArgumentException("Не верный оператор сравнения."),
             };
-            return $"WHERE DATE(BirthDate) {sqlOperator} @BirthDate";
+            return $" WHERE DATE(BirthDate) {sqlOperator} @BirthDate";
         }
     }
 }
